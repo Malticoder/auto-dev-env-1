@@ -10,7 +10,7 @@ data "template_file" "userdata" {
 resource "aws_instance" "web" { 
   ami = "ami-0150ccaf51ab55a51"
   instance_type = "t2.micro"
-  security_groups = [ aws_security_group.app_sg.name ]
+  security_groups = [ aws_security_group.web_sg.name ]
   user_data_replace_on_change = true
   key_name = "ssh-key-terraform1"
   #user_data = file("./userdata.sh")
@@ -31,7 +31,7 @@ connection {
   }
 
 
-resource "aws_security_group" "app_sg" {
+resource "aws_security_group" "web_sg" {
   name        = "security-group-${var.branch_name}"
   description = "Allow SSH and HTTP"
 
