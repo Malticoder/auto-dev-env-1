@@ -21,7 +21,7 @@ resource "aws_instance" "web" {
 connection {
     type        = "ssh"
     user        = "ec2-user"
-    private_key = file("C:/Users/Malti/Downloads/ssh-key-terraform1.pem")
+    private_key = file("./id_rsa")
     host        = self.public_ip
   }
   provisioner "file" {
