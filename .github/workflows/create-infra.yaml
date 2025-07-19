@@ -12,6 +12,8 @@ jobs:
   Create-Infrastructure:
     name: Create Infrastructure
     runs-on: ubuntu-latest
+    env:
+      Branch_name: ${{ github.ref_name }}
     defaults:
       run:
         shell: bash
