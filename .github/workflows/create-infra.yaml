@@ -7,13 +7,12 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SSH_KEY: ${{ secrets.SSH_KEY }}
   #AWS_REGION: ${{ secrets.AWS_REGION }}
+  Branch_name: ${{ github.ref_name }}
 
 jobs:
   Create-Infrastructure:
     name: Create Infrastructure
     runs-on: ubuntu-latest
-    env:
-      Branch_name: ${{ github.ref_name }}
     defaults:
       run:
         shell: bash
