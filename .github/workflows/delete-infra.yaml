@@ -28,4 +28,4 @@ jobs:
       - name: Perform terraform Init 
         run: terraform init 
       - name: Perform terraform destroy
-        run: terraform destroy -var "branch_name=${{ github.ref_name }}" --auto-approve 
+        run: terraform destroy -var="bucket_name=malti-coder-terraform-bucket-for-s3-backend"
