@@ -1,4 +1,3 @@
-variable "bucket_name" {
+variable "branch_name" {
     type = string 
-    description = "The name of the S3 bucket to create."
 }
