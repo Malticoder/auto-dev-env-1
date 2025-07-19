@@ -33,6 +33,6 @@ jobs:
         run:  terraform init 
 
       - name: Perform terraform plan
-        run: terraform plan -var "branch_name=${{ github.ref_name }}" 
+        run: terraform plan -var="bucket_name=malti-coder-terraform-bucket-for-s3-backend"
       - name: Perform terraform apply
-        run: terraform apply -var "branch_name=${{ github.ref_name }}" --auto-approve
+        run: terraform apply -auto-approve -var="bucket_name=malti-coder-terraform-bucket-for-s3-backend"
