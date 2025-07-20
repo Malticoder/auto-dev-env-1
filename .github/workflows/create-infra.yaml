@@ -26,7 +26,7 @@ jobs:
       - name: Step to Checkout the code 
         uses: actions/checkout@v4
       - name: Prepare HTML
-        run : |
+        run: |
           sed -i "s/PLACEHOLDER_USER/${{ github.actor }}/g" ../project-code/*html
           sed -i "s/PLACEHOLDER_BRANCH/${{ github.ref_name }}/g" ../project-code/*html
       - name: Setup ssh
@@ -34,11 +34,36 @@ jobs:
       - name: Setup ssh
         run: ls -lh id_rsa
         
-      - name: Perform terraform Init 
-        run:  terraform init 
+  Terraform-Plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    needs: Create-Infrastructure
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Perform terraform Init 
+        run: terraform init 
       - name: Perform terraform plan
         run: terraform plan -var "branch_name=${{ github.ref_name }}" 
 
+  Terraform-Apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    needs: Terraform-Plan
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Perform terraform Init 
+        run: terraform init 
       - name: Perform terraform apply
         run: terraform apply -var "branch_name=${{ github.ref_name }}" --auto-approve
