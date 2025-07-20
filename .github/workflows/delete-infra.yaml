@@ -40,6 +40,7 @@ jobs:
     name: Terraform Destroy
     runs-on: ubuntu-latest
     needs: terraform-init
+    if: github.ref_name == 'master'
     defaults:
       run:
         shell: bash
