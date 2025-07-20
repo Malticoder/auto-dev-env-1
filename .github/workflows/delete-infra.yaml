@@ -11,15 +11,14 @@ env:
   
 
 jobs:
-  Delete-Infrastructure:
-    name: Destroy Infrastructure
+  Terraform-Plan:
+    name: Terraform Plan
     runs-on: ubuntu-latest
-   
     defaults:
       run:
         shell: bash
         working-directory: ./terraform
-          
+
     steps:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -31,5 +30,24 @@ jobs:
         run: echo "$SSH_KEY" > id_rsa
       - name: Perform terraform Init 
         run: terraform init 
+      - name: Perform terraform plan
+        run: terraform plan -var "branch_name=${{ github.ref_name }}" 
+
+  Terraform-Destroy:
+    name: Terraform Destroy
+    runs-on: ubuntu-latest
+    needs: Terraform-Plan
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform
+
+    steps:
+      - name: Step to Checkout the code 
+        uses: actions/checkout@v4
+      - name: Setup ssh
+        run: echo "$SSH_KEY" > id_rsa
+      - name: Perform terraform Init 
+        run: terraform init 
       - name: Perform terraform destroy
-        run: terraform destroy -var "branch_name=${{ github.ref_name }}" --auto-approve 
+        run: terraform destroy -var "branch_name=${{ github.ref_name }}" --auto-approve
