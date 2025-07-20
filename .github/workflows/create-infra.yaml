@@ -35,7 +35,6 @@ jobs:
       - name: Setup SSH Key
         run: |
           echo "$SSH_KEY" > id_rsa
-          chmod 600 id_rsa
           ls -lh id_rsa
 
       - name: Terraform Init
@@ -70,7 +69,6 @@ jobs:
       - name: Setup SSH Key
         run: |
           echo "$SSH_KEY" > id_rsa
-          chmod 600 id_rsa
           ls -lh id_rsa
 
       - name: Terraform Init
