@@ -31,7 +31,7 @@ jobs:
           sed -i "s/PLACEHOLDER_BRANCH/${{ github.ref_name }}/g" ../project-code/*html
       - name: Setup ssh
         run: echo "$SSH_KEY" > id_rsa
-      - name: List SSH Key
+      - name: Verify SSH Key
         run: ls -lh id_rsa
         
   Terraform-Plan:
@@ -42,11 +42,11 @@ jobs:
       run:
         shell: bash
         working-directory: ./terraform
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
       - name: Perform terraform Init 
         run: terraform init 
+
       - name: Perform terraform plan
         run: terraform plan -var "branch_name=${{ github.ref_name }}" 
 
@@ -58,10 +58,9 @@ jobs:
       run:
         shell: bash
         working-directory: ./terraform
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Perform terraform Init 
-        run: terraform init 
       - name: Perform terraform apply
         run: terraform apply -var "branch_name=${{ github.ref_name }}" --auto-approve
+        
+        
