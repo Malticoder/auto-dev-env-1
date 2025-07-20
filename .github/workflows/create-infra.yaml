@@ -31,7 +31,7 @@ jobs:
           sed -i "s/PLACEHOLDER_BRANCH/${{ github.ref_name }}/g" ../project-code/*html
       - name: Setup ssh
         run: echo "$SSH_KEY" > id_rsa
-      - name: Setup ssh
+      - name: List SSh key
         run: ls -lh id_rsa
         
   Terraform-Plan:
