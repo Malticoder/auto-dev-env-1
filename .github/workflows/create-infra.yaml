@@ -7,7 +7,6 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SSH_KEY: ${{ secrets.SSH_KEY }}
   #AWS_REGION: ${{ secrets.AWS_REGION }}
-  Branch_name: ${{ github.ref_name }}
 
 jobs:
   Create-Infrastructure:
@@ -17,6 +16,7 @@ jobs:
       run:
         shell: bash
         working-directory: ./terraform
+           export_TF_VAR_branch_name=malti
     steps:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
